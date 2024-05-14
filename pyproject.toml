@@ -1,6 +1,8 @@
 [tool.poetry]
 name = "financial-analyzing-planning"
+version = "0.1.0"
 description = "Creating Multi Agent Financial Planner"
+authors = ["Z"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.12"
