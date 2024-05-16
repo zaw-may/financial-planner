@@ -1,18 +1,10 @@
-from langchain.tools import tool
+from langchain.agents import tool
 
 
 class CalculatorTools():
-
-    @tool("Make a calculation")
-    def calculate(operation):
-        """Useful to perform any mathematical calculations, 
-        like sum, minus, multiplication, division, etc.
-        The input to this tool should be a mathematical 
-        expression, a couple examples are `200*7` or `5000/2*10`
-        """
-        return eval(operation)
-  
-    def calculate_credit_score(payment_history, credit_utilization, credit_history_length, types_of_credit, new_credit_inquiries):
+    
+    @tool("Calculate the credit score")
+    def calculate_credit_score(self, payment_history, credit_utilization, credit_history_length, types_of_credit, new_credit_inquiries):
         weights = {
             'payment_history': 0.35,
             'credit_utilization': 0.30,
@@ -31,10 +23,9 @@ class CalculatorTools():
 
         return credit_score
     
-    def analyze_debt(outstanding_debt, annual_income, credit_utilization_ratio):
+    @tool("Analyze the debt")
+    def analyze_debt(self, outstanding_debt, annual_income, credit_utilization_ratio):
         debt_to_income_ratio = outstanding_debt / annual_income
         credit_utilization = credit_utilization_ratio
-        
-        return debt_to_income_ratio, credit_utilization
 
-  
+        return debt_to_income_ratio, credit_utilization

@@ -19,12 +19,11 @@ class FinancialPlanningTasks():
             """
         )
     
-    def claculate_financial_task(self, agent, context):
+    def claculate_financial_task(self, agent):
         return Task(
             description = 'Assess the individual\'s current financial situation with specific data variables and calculate for score',
             agent = agent,
             async_execution = True,
-            context = context,
             expected_output = """A markdown-formatted analysis for each calculation, including detailed bullet points. 
                 The result should be bold letter and underlined.
                 Example Output:
@@ -33,12 +32,11 @@ class FinancialPlanningTasks():
             """
         )
 
-    def suggest_financial_health(self, agent, context):
+    def suggest_financial_health(self, agent):
         return Task(
             description = 'Suggest and summarize the financial concepts and the individual\'s current financial situation',
             agent = agent,
             async_execution = True,
-            context = context,
             expected_output = """A complete recommendation in markdown format, with a consisten style and layout.
                 Example Output:
                 # Recommendation for your current financial situation \n\n

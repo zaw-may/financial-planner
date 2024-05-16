@@ -1,9 +1,11 @@
 from crewai import Agent
+from tools.search_tools import SearchTools
+from tools.calculator_tools import CalculatorTools
 
 class FinancialPlanningAgents():
     def financial_planner_agent(self):
         return Agent(
-            role = 'Financial Planner',
+            role = 'Financial Planner Specialist',
             goal = """Help individual achieve their financial goals and secure their financial future""",
             backstory = """Provide ongoing financial advice and guidance to individual user,
             monitor progress towards goals and making adjustments as needed, explain financial concepts, 
@@ -11,30 +13,22 @@ class FinancialPlanningAgents():
             allow_delegation = True,
             verbose = True,
             max_iter = 15,
-            tools = [],
+            tools = [SearchTools.search_internet],
         )
     
-    def estate_planner_agent(self):
+    def financial_advisor(self):
         return Agent(
-            role = 'Estate Planner',
-            goal = 'Analyze estate information and planning process',
-            backstory = """Develop and implement comprehensive estate plans, including wills, trusts, powers of attorney, 
-            identiry opportunities for tax optimization, asset protection""",
+            role = 'Financial Advisor',
+            goal = "Assess the individuals\' current financial situation and analyze financial calculation",
+            backstory = """Develop and implement comprehensive financial goals, tracking progressive, including budget management, credit management, 
+            identify opportunities for tax optimization, asset protection""",
             allow_delegation = True,
             verbose = True,
-            tools = [],
-        )
-    
-    def insurance_planner_agent(self):
-        return Agent(
-            role = 'Insurance Planner',
-            goal = 'Assist the individual with appropriate insurance coverage and risk management strategies',
-            backstory = """Provide guidance on various types of insurance, including health insurance, property insurance, 
-            recommend insurance products and coverage options, review existing insurance policies periodically 
-            to evaluate coverage adequancy and cost-effectiveness.""",
-            allow_delegation = True,
-            verbose = True,
-            tools = [],
+            tools = [
+                SearchTools.search_internet,
+                CalculatorTools.calculate_credit_score,
+                CalculatorTools.analyze_debt
+            ],
         )
     
     def financial_analyst_agent(self):
@@ -45,5 +39,5 @@ class FinancialPlanningAgents():
             to assess the financial health, create financial models and forecasts, support strategic planning initiatives.""",
             allow_delegation = True,
             verbose = True,
-            tools = [],
+            tools = [SearchTools.search_internet],
         )
