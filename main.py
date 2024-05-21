@@ -31,11 +31,47 @@ claculate_financial_task = tasks.claculate_financial_task(financial_advisor_agen
 suggest_financial_health = tasks.suggest_financial_health(financial_analyst_agent)
 
 crew = Crew(
-    agents = [financial_planner_agent, financial_advisor_agent, financial_analyst_agent],
-    tasks = [provide_financial_concepts, claculate_financial_task, suggest_financial_health],
-    process = Process.hierarchical,
-    manager_llm = OpenAIModel,
-    verbose = 2   
+    name = 'Financial Planning Crew',
+    agents = [
+        financial_planner_agent,
+        financial_advisor_agent,
+        financial_analyst_agent
+    ],
+    tasks = [
+        provide_financial_concepts,
+        claculate_financial_task,
+        suggest_financial_health
+    ],
+    manager_llm=OpenAIModel,
+    verbose=True
+)
+
+crew.add_process(
+    Process(
+        name = 'Calculate Credit Score',
+        agent = financial_advisor_agent,
+        tool = 'CalculatorTools.calculate_credit_score',
+        inputs = {
+            'payment_history': float(payment_history),
+            'credit_utilization': float(credit_utilization),
+            'credit_history_length': int(credit_history_length),
+            'types_of_credit': int(types_of_credit),
+            'new_credit_inquiries': int(new_credit_inquires)
+        }
+    )
+)
+
+crew.add_process(   
+    Process(
+        name = 'Analyze Debt',
+        agent = financial_advisor_agent,
+        tool = 'CalculatorTools.analyze_debt',
+        inputs = {
+            'outstanding_debt': float(outstanding_debt),
+            'annual_income': float(annual_income),
+            'credit_utilization_ratio': float(credit_utilization)
+        }
+    )
 )
 
 results = crew.kickoff()
