@@ -11,6 +11,8 @@ duckduckgo-search = "^4.4.2"
 python-dotenv = "^1.0.1"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
+langgraph = "^0.0.54"
+langchain = "^0.1.19"
 
 [tool.pyright]
 useLibraryCodeForTypes = true
