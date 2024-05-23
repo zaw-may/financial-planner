@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-st.title('Financial Health Dashboard')
+st.markdown("<h1 style='text-align: center; color: black;'>Financial Health Dashboard</h1>", unsafe_allow_html=True)
 
 #Key Metrics (Section 1)
 #data1 = pd.read_csv('data\sample_financial_data.csv', low_memory = False)
@@ -101,10 +101,17 @@ goals_data = [
 data3 = pd.DataFrame(goals_data)
 
 st.subheader('Financial Goals')
-st.write(data3)
+if st.button("My Goals List"):
+    st.write(data3)
 
-def goals_progress(data3):
-    fig, axes = plt.subplots(1, 3, figsize = (10, 6))
+def goals_progress(data3):   
+    num_goals = len(data3)
+    fig, axes = plt.subplots(1, num_goals, figsize = (5 * num_goals, 6))
+
+    if num_goals == 1:
+        axes = [axes]
+
+    fig, axes = plt.subplots(1, num_goals, figsize = (10, 6))
     for idx, row in data3.iterrows():
         progress = row['Current Saved Amount'] / row['Target Amount'] * 100
         ax = axes[idx]
